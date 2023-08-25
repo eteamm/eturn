@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PositionsRepo extends JpaRepository<Positions,Long> {
 
-    public List<Positions> findByIdTurn(Long id_turn);
+    List<Positions> findByIdTurn(Long id_turn);
 }
