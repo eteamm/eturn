@@ -1,6 +1,6 @@
 package com.eturn.controller;
 
-import com.eturn.domain.Positions;
+import com.eturn.domain.Position;
 import com.eturn.repo.PositionsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class PositionsController {
         this.positionRepo = positionRepo;
     }
     @GetMapping
-    public List<Positions> getPositionsList(){
+    public List<Position> getPositionsList(){
         return positionRepo.findAll();
     }
 //    positions?id_user=1&id_turn=1
@@ -30,18 +30,18 @@ public class PositionsController {
 //        return positionRepo.findByIdTurnAndIdUser(id_turn,id_user);
 //    }
     @GetMapping("{id_turn}")
-    public List<Positions> getPositions(@PathVariable("id_turn") Long id_turn){
+    public List<Position> getPositions(@PathVariable("id_turn") Long id_turn){
         return positionRepo.findByIdTurn(id_turn);
     }
 
     @PostMapping
-    public Positions create(@RequestBody Positions position){
+    public Position create(@RequestBody Position position){
         position.setCreationDate(LocalDateTime.now());
         return positionRepo.save(position);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Positions position) {
+    public void delete(@PathVariable("id") Position position) {
         positionRepo.delete(position);
     }
 }

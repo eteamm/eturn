@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table
-public class Positions {
+public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

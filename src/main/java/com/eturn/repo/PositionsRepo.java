@@ -1,11 +1,11 @@
 package com.eturn.repo;
 
-import com.eturn.domain.Positions;
+import com.eturn.domain.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PositionsRepo extends JpaRepository<Positions,Long> {
+public interface PositionsRepo extends JpaRepository<Position,Long> {
 
-    List<Positions> findByIdTurn(Long id_turn);
+    List<Position> findByIdTurn(Long id_turn);
 }
