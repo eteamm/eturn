@@ -2,7 +2,7 @@ package com.eturn.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-
+// I love you
 @Entity
 @Table
 public class User {
