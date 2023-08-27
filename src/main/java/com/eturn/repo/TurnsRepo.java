@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TurnRepo extends JpaRepository<Turn,Long> {
+public interface TurnsRepo extends JpaRepository<Turn, Long> {
+    List<Turn> findByIdUser(Long id_user);
 
 }
