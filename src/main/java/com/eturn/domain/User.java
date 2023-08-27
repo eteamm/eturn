@@ -2,9 +2,9 @@ package com.eturn.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-// I love you
+
 @Entity
-@Table
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
