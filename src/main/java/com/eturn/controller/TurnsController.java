@@ -3,9 +3,9 @@ package com.eturn.controller;
 import com.eturn.domain.Member;
 import com.eturn.domain.Turn;
 import com.eturn.domain.User;
-import com.eturn.repo.MemberRepo;
-import com.eturn.repo.TurnRepo;
-import com.eturn.repo.UserRepo;
+import com.eturn.repo.MembersRepo;
+import com.eturn.repo.TurnsRepo;
+import com.eturn.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +14,24 @@ import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("turn")
-public class TurnController {
+public class TurnsController {
 
-    private final TurnRepo turnRepo;
-    private final MemberRepo memberRepo;
+    private final TurnsRepo turnsRepo;
+    private final MembersRepo membersRepo;
 
-    private final UserRepo userRepo;
+    private final UsersRepo usersRepo;
 
     @Autowired
-    public TurnController(TurnRepo turnRepo, MemberRepo memberRepo, UserRepo userRepo)
+    public TurnsController(TurnsRepo turnsRepo, MembersRepo membersRepo, UsersRepo usersRepo)
     {
-        this.turnRepo=turnRepo;
-        this.memberRepo = memberRepo;
-        this.userRepo = userRepo;
+        this.turnsRepo=turnsRepo;
+        this.membersRepo = membersRepo;
+        this.usersRepo = usersRepo;
     }
 
     @GetMapping("yours/{id_user}")
     public List<Turn> getYourTurns(@PathVariable("id_user") Long id_user){
-        List<Member> members = memberRepo.findByIdUser(id_user);
+        List<Member> members = membersRepo.findByIdUser(id_user);
         if (members.isEmpty()) return null;
         else{
             List<Turn> turns = new ArrayList<Turn>();
@@ -40,8 +40,8 @@ public class TurnController {
                 public void accept(Member member) {
                     Long id_turn = member.getIdTurn();
                     Turn currentTurn;
-                    currentTurn = turnRepo.getById(id_turn);
-                    User creator = userRepo.getById(currentTurn.getIdUser());
+                    currentTurn = turnsRepo.getById(id_turn);
+                    User creator = usersRepo.getById(currentTurn.getIdUser());
                     turns.add(currentTurn);
                 }
             });
@@ -49,4 +49,6 @@ public class TurnController {
         }
 
     }
+
+
 }
