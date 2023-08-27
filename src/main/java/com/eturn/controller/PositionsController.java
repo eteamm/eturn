@@ -1,21 +1,27 @@
 package com.eturn.controller;
 
 import com.eturn.domain.Position;
+import com.eturn.domain.User;
 import com.eturn.repo.PositionsRepo;
+import com.eturn.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("position")
 public class PositionsController {
 
     private final PositionsRepo positionRepo;
+    private final UsersRepo usersRepo;
     @Autowired
-    public PositionsController(PositionsRepo positionRepo) {
+    public PositionsController(PositionsRepo positionRepo, UsersRepo usersRepo) {
         this.positionRepo = positionRepo;
+        this.usersRepo = usersRepo;
     }
     @GetMapping
     public List<Position> getPositionsList(){
@@ -30,8 +36,17 @@ public class PositionsController {
 //        return positionRepo.findByIdTurnAndIdUser(id_turn,id_user);
 //    }
     @GetMapping("{id_turn}")
-    public List<Position> getPositions(@PathVariable("id_turn") Long id_turn){
-        return positionRepo.findByIdTurn(id_turn);
+    public List<User> getPositions(@PathVariable("id_turn") Long id_turn){
+        List<Position> positions = positionRepo.findByIdTurn(id_turn);
+        List<User> users = new ArrayList<User>();
+        positions.forEach(new Consumer<Position>() {
+            @Override
+            public void accept(Position position) {
+                User user = usersRepo.getById(position.getIdUser());
+                users.add(user);
+            }
+        });
+        return users;
     } // нужно вывести всех пользователей
 
 

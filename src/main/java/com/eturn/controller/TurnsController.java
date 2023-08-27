@@ -1,12 +1,10 @@
 package com.eturn.controller;
 
+import com.eturn.domain.AllowGroup;
 import com.eturn.domain.Member;
 import com.eturn.domain.Turn;
 import com.eturn.domain.User;
-import com.eturn.repo.MembersRepo;
-import com.eturn.repo.PositionsRepo;
-import com.eturn.repo.TurnsRepo;
-import com.eturn.repo.UsersRepo;
+import com.eturn.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +22,16 @@ public class TurnsController {
 
     private final PositionsRepo positionsRepo;
 
+    private final AllowGroupsRepo allowGroupsRepo;
+
     @Autowired
-    public TurnsController(TurnsRepo turnsRepo, MembersRepo membersRepo, UsersRepo usersRepo, PositionsRepo positionsRepo)
+    public TurnsController(TurnsRepo turnsRepo, MembersRepo membersRepo, UsersRepo usersRepo, PositionsRepo positionsRepo, AllowGroupsRepo allowGroupsRepo)
     {
         this.turnsRepo=turnsRepo;
         this.membersRepo = membersRepo;
         this.usersRepo = usersRepo;
         this.positionsRepo=positionsRepo;
+        this.allowGroupsRepo = allowGroupsRepo;
     }
 
     @GetMapping("yours/{id_user}")
@@ -53,6 +54,13 @@ public class TurnsController {
             return turns;
         }
 
+    }
+
+    @GetMapping("allow/{id_user}")
+    public List<Turn> getAllowTurns(@PathVariable("id_user") Long id_user){
+//        List<AllowGroup> = AllowGroup
+        List<Turn> turns = new ArrayList<Turn>();
+        return turns;
     }
 
     @PostMapping

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table
-public class allowGroup {
+public class AllowGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
