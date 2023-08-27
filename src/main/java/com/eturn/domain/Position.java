@@ -6,15 +6,17 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
+
 @Entity
 @Table
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Getter
     @Column(updatable = false)
     private Long idTurn;
+    @Getter
     @Column(updatable = false)
     private Long idUser;
     @Column(updatable = false)
@@ -23,5 +25,13 @@ public class Position {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setIdTurn(Long idTurn) {
+        this.idTurn = idTurn;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

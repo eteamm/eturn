@@ -1,7 +1,7 @@
 package com.eturn.controller;
 
 import com.eturn.domain.Position;
-import com.eturn.repo.PositionsRepo;
+import com.eturn.repo.PositionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("positions")
-public class PositionsController {
+@RequestMapping("position")
+public class PositionController {
 
-    private final PositionsRepo positionRepo;
+    private final PositionRepo positionRepo;
     @Autowired
-    public PositionsController(PositionsRepo positionRepo) {
+    public PositionController(PositionRepo positionRepo) {
         this.positionRepo = positionRepo;
     }
     @GetMapping
@@ -33,7 +33,6 @@ public class PositionsController {
     public List<Position> getPositions(@PathVariable("id_turn") Long id_turn){
         return positionRepo.findByIdTurn(id_turn);
     }
-
     @PostMapping
     public Position create(@RequestBody Position position){
         position.setCreationDate(LocalDateTime.now());
