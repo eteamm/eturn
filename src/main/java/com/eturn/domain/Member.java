@@ -8,6 +8,10 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long idUser;
+
+    private Long idTurn;
+    private int root;
 
     public Long getId() {
         return id;
@@ -41,8 +45,5 @@ public class Member {
         this.root = root;
     }
 
-    private Long idUser;
 
-    private Long idTurn;
-    private int root;
 }
