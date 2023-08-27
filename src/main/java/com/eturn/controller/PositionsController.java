@@ -1,7 +1,7 @@
 package com.eturn.controller;
 
 import com.eturn.domain.Position;
-import com.eturn.repo.PositionRepo;
+import com.eturn.repo.PositionsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("position")
-public class PositionController {
+public class PositionsController {
 
-    private final PositionRepo positionRepo;
+    private final PositionsRepo positionRepo;
     @Autowired
-    public PositionController(PositionRepo positionRepo) {
+    public PositionsController(PositionsRepo positionRepo) {
         this.positionRepo = positionRepo;
     }
     @GetMapping
