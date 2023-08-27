@@ -35,7 +35,7 @@ public class MembersController {
 
     //Добавить изменение прав
 
-    @DeleteMapping("delete/{id_turn}/{id_user}")
+    @DeleteMapping("{id_turn}/{id_user}")
     public void delete(@PathVariable("id_user") Long id_user, @PathVariable("id_turn") Long id_turn) {
         Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
         membersRepo.delete(member);

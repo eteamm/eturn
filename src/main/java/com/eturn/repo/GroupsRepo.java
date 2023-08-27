@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface GroupsRepo extends JpaRepository<Group,Long> {
     boolean existsByNumber(int numGroup);
-
+    Group getByNumber(int numGroup);
 
 }

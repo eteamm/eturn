@@ -80,12 +80,24 @@ public class TurnsController {
     }
 
     @PostMapping
-    public Turn create(@RequestBody Turn turn){return turnsRepo.save(turn);}
+    public Turn create(@RequestBody Turn turn){
+        Turn createdTurn = turnsRepo.save(turn);
 
-    @DeleteMapping({"id"})
+        Long idTurn = createdTurn.getId();
+        Long idUser = createdTurn.getIdUser();
+        Member memberCreator = new Member();
+        memberCreator.setRoot(2);
+        memberCreator.setIdTurn(idTurn);
+        memberCreator.setIdUser(idUser);
+        membersRepo.save(memberCreator);
+        return createdTurn;
+    }
+
+    @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Turn turn){
         membersRepo.deleteByIdTurn(turn.getId());
         positionsRepo.deleteByIdTurn((turn.getId()));
+        allowGroupsRepo.deleteByIdTurn(turn.getId());
         turnsRepo.delete(turn);
     }
     //тут удалить еще allowGroups
