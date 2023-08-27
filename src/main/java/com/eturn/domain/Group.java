@@ -3,7 +3,7 @@ package com.eturn.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name="groups")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
