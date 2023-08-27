@@ -32,7 +32,9 @@ public class PositionsController {
     @GetMapping("{id_turn}")
     public List<Position> getPositions(@PathVariable("id_turn") Long id_turn){
         return positionRepo.findByIdTurn(id_turn);
-    }
+    } // нужно вывести всех пользователей
+
+
     @PostMapping
     public Position create(@RequestBody Position position){
         position.setCreationDate(LocalDateTime.now());

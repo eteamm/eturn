@@ -8,4 +8,7 @@ import java.util.List;
 public interface PositionsRepo extends JpaRepository<Position,Long> {
 
     List<Position> findByIdTurn(Long id_turn);
+
+    void deleteByIdTurn(Long idTurn);
+    void deleteByIdUser(Long idUser);
 }

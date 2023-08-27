@@ -11,7 +11,7 @@ public class Turn {
 
     private String name;
     private String description;
-
+    private String nameCreator;
     private Long idUser;
 
     public Long getId() {
@@ -44,5 +44,13 @@ public class Turn {
 
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
+    }
+
+    public String getNameCreator() {
+        return nameCreator;
+    }
+
+    public void setNameCreator(String nameCreator) {
+        this.nameCreator = nameCreator;
     }
 }

@@ -26,6 +26,9 @@ public class MembersController {
         return membersRepo.save(member);
     }
 
+
+    //Добавить изменение прав
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Member member) {membersRepo.delete(member);};
 

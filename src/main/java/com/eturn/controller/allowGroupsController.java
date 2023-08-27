@@ -32,6 +32,7 @@ public class allowGroupsController {
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") allowGroup AllowGroup) {AllowGroupsRepo.delete(AllowGroup);}
+    //тут нужно удалить все: members, positions.
 
 
 }

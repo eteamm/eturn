@@ -4,6 +4,7 @@ import com.eturn.domain.Member;
 import com.eturn.domain.Turn;
 import com.eturn.domain.User;
 import com.eturn.repo.MembersRepo;
+import com.eturn.repo.PositionsRepo;
 import com.eturn.repo.TurnsRepo;
 import com.eturn.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,15 @@ public class TurnsController {
 
     private final UsersRepo usersRepo;
 
+    private final PositionsRepo positionsRepo;
+
     @Autowired
-    public TurnsController(TurnsRepo turnsRepo, MembersRepo membersRepo, UsersRepo usersRepo)
+    public TurnsController(TurnsRepo turnsRepo, MembersRepo membersRepo, UsersRepo usersRepo, PositionsRepo positionsRepo)
     {
         this.turnsRepo=turnsRepo;
         this.membersRepo = membersRepo;
         this.usersRepo = usersRepo;
+        this.positionsRepo=positionsRepo;
     }
 
     @GetMapping("yours/{id_user}")
@@ -42,6 +46,7 @@ public class TurnsController {
                     Turn currentTurn;
                     currentTurn = turnsRepo.getById(id_turn);
                     User creator = usersRepo.getById(currentTurn.getIdUser());
+                    currentTurn.setNameCreator(creator.getName());
                     turns.add(currentTurn);
                 }
             });
@@ -50,5 +55,15 @@ public class TurnsController {
 
     }
 
+    @PostMapping
+    public Turn create(@RequestBody Turn turn){return turnsRepo.save(turn);}
+
+    @DeleteMapping({"id"})
+    public void delete(@PathVariable("id") Turn turn){
+        membersRepo.deleteByIdTurn(turn.getId());
+        positionsRepo.deleteByIdTurn((turn.getId()));
+        turnsRepo.delete(turn);
+    }
+    //тут удалить еще allowGroups
 
 }
