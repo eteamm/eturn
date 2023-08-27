@@ -9,7 +9,7 @@ public class AllowGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long idTurn;
-    private Long idUser;
+    private Long idGroup;
 
     public Long getId() {
         return id;
@@ -27,11 +27,11 @@ public class AllowGroup {
         this.idTurn = idTurn;
     }
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getIdGroup() {
+        return idGroup;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setIdGroup(Long idGroup) {
+        this.idGroup = idGroup;
     }
 }

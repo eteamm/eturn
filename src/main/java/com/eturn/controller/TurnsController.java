@@ -34,6 +34,10 @@ public class TurnsController {
         this.allowGroupsRepo = allowGroupsRepo;
     }
 
+    @GetMapping("{id_turn}")
+    public Turn getTurn(@PathVariable("id_turn") Long id_turn){
+        return turnsRepo.getById(id_turn);
+    }
     @GetMapping("yours/{id_user}")
     public List<Turn> getYourTurns(@PathVariable("id_user") Long id_user){
         List<Member> members = membersRepo.findByIdUser(id_user);
@@ -58,8 +62,20 @@ public class TurnsController {
 
     @GetMapping("allow/{id_user}")
     public List<Turn> getAllowTurns(@PathVariable("id_user") Long id_user){
-//        List<AllowGroup> = AllowGroup
+        User currentUser = usersRepo.getById(id_user);
+        List<AllowGroup> allowGroups = allowGroupsRepo.findByIdGroup(currentUser.getIdGroup());
         List<Turn> turns = new ArrayList<Turn>();
+        allowGroups.forEach(new Consumer<AllowGroup>() {
+            @Override
+            public void accept(AllowGroup allowGroup) {
+                Long id_turn = allowGroup.getIdTurn();
+                Turn currentTurn;
+                currentTurn = turnsRepo.getById(id_turn);
+                User creator = usersRepo.getById(currentTurn.getIdUser());
+                currentTurn.setNameCreator(creator.getName());
+                turns.add(currentTurn);
+            }
+        });
         return turns;
     }
 

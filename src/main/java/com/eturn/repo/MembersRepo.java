@@ -12,4 +12,7 @@ public interface MembersRepo extends JpaRepository<Member,Long> {
     void deleteByIdTurn(Long idTurn);
     void deleteByIdGroup(Long idGroup);
 
+    Member getByIdUser(Long idUser);
+    Member getByIdUserAndIdTurn(Long id_user, Long id_turn);
+
 }
