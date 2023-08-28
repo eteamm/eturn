@@ -2,9 +2,9 @@ package com.eturn.controller;
 
 import com.eturn.domain.Group;
 import com.eturn.domain.Member;
-import com.eturn.repo.GroupsRepo;
-import com.eturn.repo.MembersRepo;
-import com.eturn.repo.PositionsRepo;
+import com.eturn.domain.Turn;
+import com.eturn.domain.User;
+import com.eturn.repo.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,12 +15,19 @@ import java.util.function.Consumer;
 public class GroupsController {
     private final GroupsRepo groupsRepo;
     private final MembersRepo membersRepo;
-    private final PositionsRepo positionRepo;
+    private final PositionsRepo positionsRepo;
+    private final UsersRepo usersRepo;
+    private final AllowGroupsRepo allowGroupsRepo;
+    private final TurnsRepo turnsRepo;
 
-    public GroupsController(GroupsRepo groupsRepo,MembersRepo membersRepo,PositionsRepo positionsRepo) {
+    public GroupsController(GroupsRepo groupsRepo, MembersRepo membersRepo, PositionsRepo positionsRepo,
+                            UsersRepo usersRepo,AllowGroupsRepo allowGroupsRepo, TurnsRepo turnsRepo) {
         this.groupsRepo = groupsRepo;
         this.membersRepo=membersRepo;
-        this.positionRepo=positionsRepo;
+        this.positionsRepo=positionsRepo;
+        this.usersRepo =usersRepo;
+        this.allowGroupsRepo=allowGroupsRepo;
+        this.turnsRepo=turnsRepo;
     }
 
 
@@ -42,21 +49,39 @@ public class GroupsController {
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Group group) {
-        List<Member> members =membersRepo.findByIdGroup(group.getId());
-        if (!members.isEmpty())
-        {
-            members.forEach(new Consumer<Member>() {
-                @Override
-                public void accept(Member member){
-                    positionRepo.deleteByIdUser(member.getIdUser());
+        List<User> users= usersRepo.findByIdGroup(group.getId());
+        users.forEach(new Consumer<User>(){
+            @Override
+            public void accept(User user) {
+                List<Member> members= membersRepo.findByIdUser(user.getId());
+                if (!members.isEmpty())
+                {
+                    members.forEach(new Consumer<Member>() {
+                        @Override
+                        public void accept(Member member){
+                            List<Turn> currentTurns= turnsRepo.findByIdUser(member.getIdUser());
+                            currentTurns.forEach(new Consumer<Turn>() {
+                                @Override
+                                public void accept(Turn turn) {
+                                    membersRepo.deleteByIdTurn(turn.getId());
+                                    positionsRepo.deleteByIdTurn((turn.getId()));
+                                    allowGroupsRepo.deleteByIdTurn(turn.getId());
+                                }
+                            });
+                            turnsRepo.deleteByIdUser(member.getIdUser());
+                            positionsRepo.deleteByIdUser(member.getIdUser());
+                            membersRepo.delete(member);
+                        }
+                    });
+                    allowGroupsRepo.deleteByIdGroup(group.getId());
+                    usersRepo.deleteByIdGroup(group.getId());
 
                 }
+            }
+        });
 
-            });
-            membersRepo.deleteByIdGroup(group.getId());
 
-        }
         groupsRepo.delete(group);
 
-    }//удалить еще: Users, allowGroups, turns.
+    }
 }

@@ -11,4 +11,5 @@ public interface PositionsRepo extends JpaRepository<Position,Long> {
 
     void deleteByIdTurn(Long idTurn);
     void deleteByIdUser(Long idUser);
+    void deleteByIdUserAndIdTurn(Long id_user, Long id_turn);
 }

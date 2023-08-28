@@ -9,7 +9,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long idUser;
-    private Long idGroup;
+
 
 
 
@@ -47,13 +47,7 @@ public class Member {
     public void setRoot(int root) {
         this.root = root;
     }
-    public Long getIdGroup() {
-        return idGroup;
-    }
 
-    public void setIdGroup(Long idGroup) {
-        this.idGroup = idGroup;
-    }
 
 
 }

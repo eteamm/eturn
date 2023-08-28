@@ -68,12 +68,16 @@ public class TurnsController {
         allowGroups.forEach(new Consumer<AllowGroup>() {
             @Override
             public void accept(AllowGroup allowGroup) {
+                if (!membersRepo.existsByIdUserAndIdTurn(id_user, allowGroup.getIdTurn())){
+
                 Long id_turn = allowGroup.getIdTurn();
                 Turn currentTurn;
                 currentTurn = turnsRepo.getById(id_turn);
                 User creator = usersRepo.getById(currentTurn.getIdUser());
                 currentTurn.setNameCreator(creator.getName());
                 turns.add(currentTurn);
+
+                }
             }
         });
         return turns;
@@ -100,6 +104,6 @@ public class TurnsController {
         allowGroupsRepo.deleteByIdTurn(turn.getId());
         turnsRepo.delete(turn);
     }
-    //тут удалить еще allowGroups
+
 
 }

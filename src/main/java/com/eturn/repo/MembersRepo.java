@@ -8,11 +8,17 @@ import java.util.List;
 public interface MembersRepo extends JpaRepository<Member,Long> {
 
     List<Member> findByIdUser(Long id_user);
-    List<Member> findByIdGroup(Long idGroup);
+
+
     void deleteByIdTurn(Long idTurn);
-    void deleteByIdGroup(Long idGroup);
+
+
+
+
 
     Member getByIdUser(Long idUser);
     Member getByIdUserAndIdTurn(Long id_user, Long id_turn);
+
+    boolean existsByIdUserAndIdTurn(Long id_user, Long id_group);
 
 }

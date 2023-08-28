@@ -47,7 +47,7 @@ public class PositionsController {
             }
         });
         return users;
-    } // нужно вывести всех пользователей
+    }
 
 
     @PostMapping
