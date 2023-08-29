@@ -5,6 +5,7 @@ import com.eturn.domain.Member;
 import com.eturn.domain.Turn;
 import com.eturn.domain.User;
 import com.eturn.repo.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -95,6 +96,12 @@ public class TurnsController {
         memberCreator.setIdUser(idUser);
         membersRepo.save(memberCreator);
         return createdTurn;
+    }
+    // сделать дополнительные проверки, что все данные соответствуют требованиям
+    @PutMapping("{id_turn}")
+    public Turn update(@PathVariable("id_turn") Turn turnFromDb, @RequestBody Turn turn){
+        BeanUtils.copyProperties(turn, turnFromDb,"id");
+        return turnFromDb;
     }
 
     @DeleteMapping("{id}")

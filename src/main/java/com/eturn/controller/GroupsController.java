@@ -47,8 +47,9 @@ public class GroupsController {
 
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Group group) {
+    @DeleteMapping("{number}")
+    public void delete(@PathVariable("number") int number) {
+        Group group = groupsRepo.getByNumber(number);
         List<User> users= usersRepo.findByIdGroup(group.getId());
         users.forEach(new Consumer<User>(){
             @Override
