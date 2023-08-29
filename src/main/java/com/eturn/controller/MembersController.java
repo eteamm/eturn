@@ -2,6 +2,7 @@ package com.eturn.controller;
 
 
 import com.eturn.domain.Member;
+import com.eturn.domain.User;
 import com.eturn.repo.MembersRepo;
 import com.eturn.repo.PositionsRepo;
 import org.springframework.web.bind.annotation.*;

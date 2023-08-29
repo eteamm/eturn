@@ -22,7 +22,7 @@ public class AllowGroupsController {
     private final UsersRepo usersRepo;
 
 
-    public AllowGroupsController(com.eturn.repo.AllowGroupsRepo allowGroupRepo, GroupsRepo groupsRepo,
+    public AllowGroupsController(AllowGroupsRepo allowGroupRepo, GroupsRepo groupsRepo,
                                  MembersRepo membersRepo,PositionsRepo positionsRepo,UsersRepo usersRepo) {
         this.allowGroupsRepo = allowGroupRepo;
         this.groupsRepo = groupsRepo;
@@ -62,8 +62,10 @@ public class AllowGroupsController {
 
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") AllowGroup allowGroup) {
+    @DeleteMapping("{id_turn}/{number}")
+    public void delete(@PathVariable("id_turn") Long id_turn, @PathVariable("number") int number) {
+        Group group = groupsRepo.getByNumber(number);
+        AllowGroup allowGroup = allowGroupsRepo.getByIdTurnAndIdGroup(id_turn, group.getId());
         List<User> users=usersRepo.findByIdGroup(allowGroup.getIdGroup());
         users.forEach(new Consumer<User>() {
             @Override
