@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface AllowGroupsRepo extends JpaRepository<AllowGroup,Long> {
     List<AllowGroup> findByIdGroup(Long idGroup);
+    List<AllowGroup> findByIdTurn(Long idTurn);
     void deleteByIdTurn(Long idTurn);
     void deleteByIdGroup(Long idGroup);
 

@@ -37,6 +37,11 @@ public class AllowGroupsController {
         return allowGroupsRepo.findAll();
     }
 
+    @GetMapping("{id_turn}")
+    public List<AllowGroup> getAllowGroup(@PathVariable("id_turn") Long id_turn){
+        return allowGroupsRepo.findByIdTurn(id_turn);
+    }
+
     @PostMapping
     public List<AllowGroup> create(@RequestBody List<AllowGroup> allowGroups){
         allowGroups.forEach(new Consumer<AllowGroup>() {
