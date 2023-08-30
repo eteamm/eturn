@@ -63,10 +63,18 @@ public class PositionsController {
 
 
     @PostMapping
-    public User create(@RequestBody Position position){
+    public PositionToClient create(@RequestBody Position position){
+        PositionToClient positionToClient= new PositionToClient();
         position.setCreationDate(LocalDateTime.now());
-        Position positionNew = positionsRepo.save(position);
-        return usersRepo.getById(positionNew.getIdUser());
+        positionsRepo.save(position);
+        User user=usersRepo.getById(position.getIdUser());
+        Group group = groupsRepo.getById(user.getIdGroup());
+        positionToClient.setId(position.getId());
+        positionToClient.setNumberGroup(group.getNumber());
+        positionToClient.setName(user.getName());
+        return positionToClient;
+
+
     }
 
     @DeleteMapping()
