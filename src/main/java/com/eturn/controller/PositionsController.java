@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 @RestController
@@ -82,7 +83,7 @@ public class PositionsController {
                         @PathVariable("id") Position position,
                         @RequestParam(value = "id_user", required = false) Long id_user) {
 
-        if (id_user== position.getIdUser())
+        if (Objects.equals(id_user, position.getIdUser()))
         {
             positionsRepo.delete(position);
             return;
