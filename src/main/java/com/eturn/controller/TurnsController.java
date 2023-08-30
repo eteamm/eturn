@@ -39,8 +39,8 @@ public class TurnsController {
     public Turn getTurn(@PathVariable("id_turn") Long id_turn){
         return turnsRepo.getById(id_turn);
     }
-    @GetMapping("yours/{id_user}")
-    public List<Turn> getYourTurns(@PathVariable("id_user") Long id_user){
+    @GetMapping("yours")
+    public List<Turn> getYourTurns(@RequestParam(value = "id_user", required = false) Long id_user){
         List<Member> members = membersRepo.findByIdUser(id_user);
         if (members.isEmpty()) return null;
         else{
@@ -61,8 +61,8 @@ public class TurnsController {
 
     }
 
-    @GetMapping("allow/{id_user}")
-    public List<Turn> getAllowTurns(@PathVariable("id_user") Long id_user){
+    @GetMapping("allow")
+    public List<Turn> getAllowTurns(@RequestParam(value = "id_user", required = false) Long id_user){
         User currentUser = usersRepo.getById(id_user);
         List<AllowGroup> allowGroups = allowGroupsRepo.findByIdGroup(currentUser.getIdGroup());
         List<Turn> turns = new ArrayList<Turn>();

@@ -31,14 +31,14 @@ public class AllowGroupsController {
         this.usersRepo=usersRepo;
     }
 
+//
+//    @GetMapping
+//    public List<AllowGroup> getAllowGroupList(){
+//        return allowGroupsRepo.findAll();
+//    }
 
-    @GetMapping
-    public List<AllowGroup> getAllowGroupList(){
-        return allowGroupsRepo.findAll();
-    }
-
-    @GetMapping("{id_turn}")
-    public List<AllowGroup> getAllowGroup(@PathVariable("id_turn") Long id_turn){
+    @GetMapping()
+    public List<AllowGroup> getAllowGroup(@RequestParam(value = "id_turn", required = false) Long id_turn){
         return allowGroupsRepo.findByIdTurn(id_turn);
     }
 
@@ -71,8 +71,10 @@ public class AllowGroupsController {
 
     }
 
-    @DeleteMapping("{id_turn}/{number}")
-    public void delete(@PathVariable("id_turn") Long id_turn, @PathVariable("number") int number) {
+    @DeleteMapping()
+    public void delete(
+            @RequestParam(value = "id_turn", required = false) Long id_turn,
+            @RequestParam(value = "number", required = false) int number) {
         Group group = groupsRepo.getByNumber(number);
         AllowGroup allowGroup = allowGroupsRepo.getByIdTurnAndIdGroup(id_turn, group.getId());
         List<User> users=usersRepo.findByIdGroup(allowGroup.getIdGroup());

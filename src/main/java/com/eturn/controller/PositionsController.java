@@ -23,10 +23,10 @@ public class PositionsController {
         this.positionRepo = positionRepo;
         this.usersRepo = usersRepo;
     }
-    @GetMapping
-    public List<Position> getPositionsList(){
-        return positionRepo.findAll();
-    }
+//    @GetMapping
+//    public List<Position> getPositionsList(){
+//        return positionRepo.findAll();
+//    }
 //    positions?id_user=1&id_turn=1
 //    @GetMapping
 //    public List<Position> getPositions(
@@ -35,8 +35,8 @@ public class PositionsController {
 //
 //        return positionRepo.findByIdTurnAndIdUser(id_turn,id_user);
 //    }
-    @GetMapping("{id_turn}")
-    public List<User> getPositions(@PathVariable("id_turn") Long id_turn){
+    @GetMapping()
+    public List<User> getPositions(@RequestParam(value = "id_turn", required = false) Long id_turn){
         List<Position> positions = positionRepo.findByIdTurn(id_turn);
         List<User> users = new ArrayList<User>();
         positions.forEach(new Consumer<Position>() {
