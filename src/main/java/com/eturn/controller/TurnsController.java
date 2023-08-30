@@ -86,18 +86,21 @@ public class TurnsController {
 
     @PostMapping
     public Turn create(@RequestBody Turn turn){
-        Turn createdTurn = turnsRepo.save(turn);
+        if (turn.getDescription().length()<=255 && turn.getName().length()<=50) {
+            Turn createdTurn = turnsRepo.save(turn);
 
-        Long idTurn = createdTurn.getId();
-        Long idUser = createdTurn.getIdUser();
-        Member memberCreator = new Member();
-        memberCreator.setRoot(2);
-        memberCreator.setIdTurn(idTurn);
-        memberCreator.setIdUser(idUser);
-        membersRepo.save(memberCreator);
-        return createdTurn;
+            Long idTurn = createdTurn.getId();
+            Long idUser = createdTurn.getIdUser();
+            Member memberCreator = new Member();
+            memberCreator.setRoot(2);
+            memberCreator.setIdTurn(idTurn);
+            memberCreator.setIdUser(idUser);
+            membersRepo.save(memberCreator);
+            return createdTurn;
+        }
+        return turn;
     }
-    // сделать дополнительные проверки, что все данные соответствуют требованиям
+
     @PutMapping("{id_turn}")
     public Turn update(@PathVariable("id_turn") Turn turnFromDb, @RequestBody Turn turn){
         BeanUtils.copyProperties(turn, turnFromDb,"id");
