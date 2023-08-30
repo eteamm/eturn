@@ -9,10 +9,6 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long idUser;
-
-
-
-
     private Long idTurn;
     private int root;
 

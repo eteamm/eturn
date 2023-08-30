@@ -8,7 +8,8 @@ import java.util.List;
 public interface MembersRepo extends JpaRepository<Member,Long> {
 
     List<Member> findByIdUser(Long id_user);
-
+    List<Member> findByIdTurnAndRootNot(Long id_turn, int root);
+    List<Member> findByIdTurnAndRoot(Long id_turn, int root);
 
     void deleteByIdTurn(Long idTurn);
     void deleteByIdUser(Long idUser);
