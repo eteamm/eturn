@@ -50,8 +50,10 @@ public class MembersController {
         return users;
     }
 
-    @GetMapping("root/{id_turn}/{id_user}")
-    public Member checkRootUser(@PathVariable("id_user") Long id_user, @PathVariable("id_turn") Long id_turn){
+    @GetMapping("root")
+    public Member checkRootUser(
+            @RequestParam(value = "id_user", required = false) Long id_user,
+            @RequestParam(value = "id_turn", required = false) Long id_turn){
         return membersRepo.getByIdUserAndIdTurn(id_user, id_turn);
     }
 
@@ -89,7 +91,7 @@ public class MembersController {
             membersRepo.delete(member);
         }
 
-    };
+    }
 
 
 
