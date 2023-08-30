@@ -55,9 +55,10 @@ public class PositionsController {
 
 
     @PostMapping
-    public Position create(@RequestBody Position position){
+    public User create(@RequestBody Position position){
         position.setCreationDate(LocalDateTime.now());
-        return positionsRepo.save(position);
+        Position positionNew = positionsRepo.save(position);
+        return usersRepo.getById(positionNew.getIdUser());
     }
 
     @DeleteMapping()
