@@ -77,19 +77,20 @@ public class PositionsController {
 
     }
 
-    @DeleteMapping()
-    public void delete(@RequestParam(value = "id_turn", required = false) Long id_turn,
-                       @RequestParam(value = "id_user_delete", required = false) Long id_user_delete,
-                       @RequestParam(value = "id_user", required = false) Long id_user) {
-        if (id_user==id_user_delete)
+    @DeleteMapping("{id}")
+    public void delete(
+                        @PathVariable("id") Position position,
+                        @RequestParam(value = "id_user", required = false) Long id_user) {
+
+        if (id_user== position.getIdUser())
         {
-            positionsRepo.deleteByIdUserAndIdTurn(id_user_delete,id_turn);
+            positionsRepo.delete(position);
             return;
         }
-        Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user, position.getIdTurn());
         if (member.getRoot()==2 || member.getRoot()==1)
         {
-            positionsRepo.deleteByIdUserAndIdTurn(id_user_delete,id_turn);
+            positionsRepo.delete(position);
         }
     }
 }
