@@ -45,8 +45,11 @@ public class AllowGroupsController {
     @PostMapping
     public List<AllowGroup> create(@RequestBody List<AllowGroup> allowGroups){
         allowGroups.forEach(new Consumer<AllowGroup>() {
+
             @Override
             public void accept(AllowGroup allowGroup) {
+
+
                 Long id_group_illusion = allowGroup.getIdGroup();
                 int number = id_group_illusion.intValue();
                 if (groupsRepo.existsByNumber(number)){
@@ -62,6 +65,7 @@ public class AllowGroupsController {
                     allowGroupsRepo.save(allowGroup);
                 }
             }
+
         });
         return allowGroups;
 
