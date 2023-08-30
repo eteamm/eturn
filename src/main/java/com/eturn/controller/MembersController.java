@@ -93,8 +93,14 @@ public class MembersController {
     public void delete(@RequestParam(value = "id_turn", required = false) Long id_turn,
                        @RequestParam(value = "id_user_delete", required = false) Long id_user_delete,
                        @RequestParam(value = "id_user", required = false) Long id_user) {
-        if (membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==2 || membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==1) {
-            Member member = membersRepo.getByIdUserAndIdTurn(id_user, id_turn);
+        if (id_user == id_user_delete)
+        {
+            positionRepo.deleteByIdUserAndIdTurn(id_user_delete, id_turn);
+            return;
+        }
+        Member member= membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
+        if (member.getRoot()==2 ||member.getRoot()==1) {
+
             positionRepo.deleteByIdUserAndIdTurn(member.getIdUser(), member.getIdTurn());
             membersRepo.delete(member);
         }
