@@ -2,6 +2,7 @@ package com.eturn.controller;
 
 import com.eturn.domain.Position;
 import com.eturn.domain.User;
+import com.eturn.repo.MembersRepo;
 import com.eturn.repo.PositionsRepo;
 import com.eturn.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,18 @@ import java.util.function.Consumer;
 @RequestMapping("position")
 public class PositionsController {
 
-    private final PositionsRepo positionRepo;
+    private final PositionsRepo positionsRepo;
     private final UsersRepo usersRepo;
+    private final MembersRepo membersRepo;
     @Autowired
-    public PositionsController(PositionsRepo positionRepo, UsersRepo usersRepo) {
-        this.positionRepo = positionRepo;
+    public PositionsController(PositionsRepo positionsRepo, UsersRepo usersRepo, MembersRepo membersRepo) {
+        this.positionsRepo = positionsRepo;
         this.usersRepo = usersRepo;
+        this.membersRepo =membersRepo;
     }
     @GetMapping
     public List<Position> getPositionsList(){
-        return positionRepo.findAll();
+        return positionsRepo.findAll();
     }
 //    positions?id_user=1&id_turn=1
 //    @GetMapping
@@ -37,7 +40,7 @@ public class PositionsController {
 //    }
     @GetMapping("{id_turn}")
     public List<User> getPositions(@PathVariable("id_turn") Long id_turn){
-        List<Position> positions = positionRepo.findByIdTurn(id_turn);
+        List<Position> positions = positionsRepo.findByIdTurn(id_turn);
         List<User> users = new ArrayList<User>();
         positions.forEach(new Consumer<Position>() {
             @Override
@@ -53,11 +56,17 @@ public class PositionsController {
     @PostMapping
     public Position create(@RequestBody Position position){
         position.setCreationDate(LocalDateTime.now());
-        return positionRepo.save(position);
+        return positionsRepo.save(position);
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Position position) {
-        positionRepo.delete(position);
+    @DeleteMapping()
+    public void delete(@RequestParam(value = "id_turn", required = false) Long id_turn,
+                       @RequestParam(value = "id_user_delete", required = false) Long id_user_delete,
+                       @RequestParam(value = "id_user", required = false) Long id_user) {
+
+        if (membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==2 || membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==1)
+        {
+            positionsRepo.deleteByIdUserAndIdTurn(id_user_delete,id_turn);
+        }
     }
 }
