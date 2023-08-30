@@ -1,5 +1,6 @@
 package com.eturn.controller;
 
+import com.eturn.domain.Member;
 import com.eturn.domain.Position;
 import com.eturn.domain.User;
 import com.eturn.repo.MembersRepo;
@@ -63,8 +64,13 @@ public class PositionsController {
     public void delete(@RequestParam(value = "id_turn", required = false) Long id_turn,
                        @RequestParam(value = "id_user_delete", required = false) Long id_user_delete,
                        @RequestParam(value = "id_user", required = false) Long id_user) {
-
-        if (membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==2 || membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==1)
+        if (id_user==id_user_delete)
+        {
+            positionsRepo.deleteByIdUserAndIdTurn(id_user_delete,id_turn);
+            return;
+        }
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
+        if (member.getRoot()==2 || member.getRoot()==1)
         {
             positionsRepo.deleteByIdUserAndIdTurn(id_user_delete,id_turn);
         }
