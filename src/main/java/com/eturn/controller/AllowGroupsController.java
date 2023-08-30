@@ -43,52 +43,58 @@ public class AllowGroupsController {
     }
 
     @PostMapping
-    public List<AllowGroup> create(@RequestBody List<AllowGroup> allowGroups){
-        allowGroups.forEach(new Consumer<AllowGroup>() {
+    public List<AllowGroup> create(
+            @RequestBody List<AllowGroup> allowGroups,
+            @RequestParam(value = "id_user", required = false) Long id_user){
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user,allowGroups.get(0).getIdTurn());
+        if (member.getRoot()==2) {
+            allowGroups.forEach(new Consumer<AllowGroup>() {
 
-            @Override
-            public void accept(AllowGroup allowGroup) {
+                @Override
+                public void accept(AllowGroup allowGroup) {
 
 
-                Long id_group_illusion = allowGroup.getIdGroup();
-                int number = id_group_illusion.intValue();
-                if (groupsRepo.existsByNumber(number)){
-                    Group group = groupsRepo.getByNumber(number);
-                    allowGroup.setIdGroup(group.getId());
-                    allowGroupsRepo.save(allowGroup);
+                    Long id_group_illusion = allowGroup.getIdGroup();
+                    int number = id_group_illusion.intValue();
+                    if (groupsRepo.existsByNumber(number)) {
+                        Group group = groupsRepo.getByNumber(number);
+                        allowGroup.setIdGroup(group.getId());
+                        allowGroupsRepo.save(allowGroup);
+                    } else {
+                        Group group = new Group();
+                        group.setNumber(number);
+                        Group createdGroup = groupsRepo.save(group);
+                        allowGroup.setIdGroup(createdGroup.getId());
+                        allowGroupsRepo.save(allowGroup);
+                    }
                 }
-                else{
-                    Group group = new Group();
-                    group.setNumber(number);
-                    Group createdGroup = groupsRepo.save(group);
-                    allowGroup.setIdGroup(createdGroup.getId());
-                    allowGroupsRepo.save(allowGroup);
-                }
-            }
 
-        });
+            });
+        }
         return allowGroups;
-
     }
 
     @DeleteMapping()
     public void delete(
             @RequestParam(value = "id_turn", required = false) Long id_turn,
-            @RequestParam(value = "number", required = false) int number) {
-        Group group = groupsRepo.getByNumber(number);
-        AllowGroup allowGroup = allowGroupsRepo.getByIdTurnAndIdGroup(id_turn, group.getId());
-        List<User> users=usersRepo.findByIdGroup(allowGroup.getIdGroup());
-        users.forEach(new Consumer<User>() {
-            @Override
-            public void accept(User user) {
-                Member member= membersRepo.getByIdUserAndIdTurn(user.getId(), allowGroup.getIdTurn());
-                positionsRepo.deleteByIdUserAndIdTurn(user.getId(), allowGroup.getIdTurn());
-                membersRepo.delete(member);
-            }
-        });
+            @RequestParam(value = "number", required = false) int number,
+            @RequestParam(value = "id_user", required = false) Long id_user) {
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
+        if (member.getRoot()==2){
+            Group group = groupsRepo.getByNumber(number);
+            AllowGroup allowGroup = allowGroupsRepo.getByIdTurnAndIdGroup(id_turn, group.getId());
+            List<User> users=usersRepo.findByIdGroup(allowGroup.getIdGroup());
+            users.forEach(new Consumer<User>() {
+                @Override
+                public void accept(User user) {
+                    Member member= membersRepo.getByIdUserAndIdTurn(user.getId(), allowGroup.getIdTurn());
+                    positionsRepo.deleteByIdUserAndIdTurn(user.getId(), allowGroup.getIdTurn());
+                    membersRepo.delete(member);
+                }
+            });
+            allowGroupsRepo.delete(allowGroup);
+        }
 
-
-        allowGroupsRepo.delete(allowGroup);
 
     }
 
