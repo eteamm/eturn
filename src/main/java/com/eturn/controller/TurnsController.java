@@ -102,9 +102,16 @@ public class TurnsController {
     }
 
     @PutMapping("{id_turn}")
-    public Turn update(@PathVariable("id_turn") Turn turnFromDb, @RequestBody Turn turn){
-        BeanUtils.copyProperties(turn, turnFromDb,"id");
-        return turnFromDb;
+    public Turn update(
+            @PathVariable("id_turn") Turn turnFromDb,
+            @RequestBody Turn turn,
+            @RequestParam(value = "id_user", required = false) Long id_user
+    ){
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user,turnFromDb.getId());
+        if (member.getRoot()==2 || member.getRoot()==1){
+            BeanUtils.copyProperties(turn, turnFromDb,"id");
+            return turnFromDb;
+        } else return turn;
     }
 
     @DeleteMapping("{id}")

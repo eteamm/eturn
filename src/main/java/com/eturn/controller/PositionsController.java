@@ -1,8 +1,8 @@
 package com.eturn.controller;
 
-import com.eturn.domain.Member;
-import com.eturn.domain.Position;
-import com.eturn.domain.User;
+import com.eturn.client.PositionToClient;
+import com.eturn.domain.*;
+import com.eturn.repo.GroupsRepo;
 import com.eturn.repo.MembersRepo;
 import com.eturn.repo.PositionsRepo;
 import com.eturn.repo.UsersRepo;
@@ -21,11 +21,14 @@ public class PositionsController {
     private final PositionsRepo positionsRepo;
     private final UsersRepo usersRepo;
     private final MembersRepo membersRepo;
+
+    private final GroupsRepo groupsRepo;
     @Autowired
-    public PositionsController(PositionsRepo positionsRepo, UsersRepo usersRepo, MembersRepo membersRepo) {
+    public PositionsController(PositionsRepo positionsRepo, UsersRepo usersRepo, MembersRepo membersRepo, GroupsRepo groupsRepo) {
         this.positionsRepo = positionsRepo;
         this.usersRepo = usersRepo;
         this.membersRepo =membersRepo;
+        this.groupsRepo = groupsRepo;
     }
     @GetMapping
     public List<Position> getPositionsList(){
@@ -40,17 +43,22 @@ public class PositionsController {
 //        return positionRepo.findByIdTurnAndIdUser(id_turn,id_user);
 //    }
     @GetMapping("{id_turn}")
-    public List<User> getPositions(@PathVariable("id_turn") Long id_turn){
+    public List<PositionToClient> getPositions(@PathVariable("id_turn") Long id_turn){
         List<Position> positions = positionsRepo.findByIdTurn(id_turn);
-        List<User> users = new ArrayList<User>();
+        List<PositionToClient> positionToClients = new ArrayList<>();
         positions.forEach(new Consumer<Position>() {
             @Override
             public void accept(Position position) {
                 User user = usersRepo.getById(position.getIdUser());
-                users.add(user);
+                PositionToClient positionToClient = new PositionToClient();
+                positionToClient.setId(position.getId());
+                positionToClient.setName(user.getName());
+                Group group = groupsRepo.getById(user.getIdGroup());
+                positionToClient.setNumberGroup(group.getNumber());
+                positionToClients.add(positionToClient);
             }
         });
-        return users;
+        return positionToClients;
     }
 
 

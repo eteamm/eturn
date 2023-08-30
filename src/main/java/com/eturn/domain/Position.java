@@ -27,6 +27,10 @@ public class Position {
         this.creationDate = creationDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setIdTurn(Long idTurn) {
         this.idTurn = idTurn;
     }
