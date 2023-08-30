@@ -60,14 +60,19 @@ public class MembersController {
         member.setRoot(0);
         return membersRepo.save(member);
     }
-    @PutMapping("{id_turn}/{id_user}")
-    public Member update(@RequestBody Member member,@PathVariable("id_turn") Long id_turn,@PathVariable("id_user") Long id_user){
+    @PutMapping()
+    public Member update(
+            @RequestBody int root,
+            @RequestParam(value = "id_user", required = false) Long id_user_for,
+            @RequestParam(value = "id_turn", required = false) Long id_turn,
+            @RequestParam(value = "id_user_change", required = false) Long id_user){
+        Member admin = membersRepo.getByIdUserAndIdTurn(id_user_for,id_turn);
         Member memberFromDb =membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
-
-        if (member.getRoot()>=0 && member.getRoot()<=2)
-        {
-            BeanUtils.copyProperties(member, memberFromDb, "id");
-            return memberFromDb;
+        if (admin.getRoot()==2){
+            if (root==0 || root==1) {
+                memberFromDb.setRoot(root);
+                return memberFromDb;
+            }
         }
         return memberFromDb;
     }
