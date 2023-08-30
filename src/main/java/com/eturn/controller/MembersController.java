@@ -74,11 +74,16 @@ public class MembersController {
 
 
 
-    @DeleteMapping("{id_turn}/{id_user}")
-    public void delete(@PathVariable("id_user") Long id_user, @PathVariable("id_turn") Long id_turn) {
-        Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
-        positionRepo.deleteByIdUserAndIdTurn(member.getIdUser(), member.getIdTurn());
-        membersRepo.delete(member);
+    @DeleteMapping()
+    public void delete(@RequestParam(value = "id_turn", required = false) Long id_turn,
+                       @RequestParam(value = "id_user_delete", required = false) Long id_user_delete,
+                       @RequestParam(value = "id_user", required = false) Long id_user) {
+        if (membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==2 || membersRepo.getByIdUserAndIdTurn(id_user,id_turn).getRoot()==1) {
+            Member member = membersRepo.getByIdUserAndIdTurn(id_user, id_turn);
+            positionRepo.deleteByIdUserAndIdTurn(member.getIdUser(), member.getIdTurn());
+            membersRepo.delete(member);
+        }
+
     };
 
 
