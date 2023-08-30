@@ -1,12 +1,13 @@
 package com.eturn.controller;
 
 
+import com.eturn.domain.Group;
 import com.eturn.domain.Member;
 import com.eturn.domain.User;
+import com.eturn.repo.GroupsRepo;
 import com.eturn.repo.MembersRepo;
 import com.eturn.repo.PositionsRepo;
 import com.eturn.repo.UsersRepo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,12 +22,14 @@ public class MembersController {
     private final PositionsRepo positionRepo;
 
     private final UsersRepo usersRepo;
+    private final GroupsRepo groupsRepo;
 
 
-    public MembersController(MembersRepo membersRepo, PositionsRepo positionsRepo, UsersRepo usersRepo) {
+    public MembersController(MembersRepo membersRepo, PositionsRepo positionsRepo, UsersRepo usersRepo, GroupsRepo groupsRepo) {
         this.membersRepo = membersRepo;
         this.positionRepo=positionsRepo;
         this.usersRepo = usersRepo;
+        this.groupsRepo = groupsRepo;
     }
 
     @GetMapping
@@ -44,7 +47,12 @@ public class MembersController {
         members.forEach(new Consumer<Member>() {
             @Override
             public void accept(Member member) {
-                users.add(usersRepo.getById(member.getIdUser()));
+                User user = usersRepo.getById(member.getIdUser());
+                Group group = groupsRepo.getById(user.getIdGroup());
+                int numberInt = group.getNumber();
+                Long number = (long) numberInt;
+                user.setIdGroup(number);
+                users.add(user);
             }
         });
         return users;
