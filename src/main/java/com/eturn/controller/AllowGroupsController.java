@@ -74,15 +74,12 @@ public class AllowGroupsController {
         return allowGroups;
     }
 
-    @DeleteMapping()
+    @DeleteMapping("{id_allow}")
     public void delete(
-            @RequestParam(value = "id_turn", required = false) Long id_turn,
-            @RequestParam(value = "number", required = false) int number,
+            @PathVariable("id_allow") AllowGroup allowGroup,
             @RequestParam(value = "id_user", required = false) Long id_user) {
-        Member member = membersRepo.getByIdUserAndIdTurn(id_user,id_turn);
+        Member member = membersRepo.getByIdUserAndIdTurn(id_user,allowGroup.getIdTurn());
         if (member.getRoot()==2){
-            Group group = groupsRepo.getByNumber(number);
-            AllowGroup allowGroup = allowGroupsRepo.getByIdTurnAndIdGroup(id_turn, group.getId());
             List<User> users=usersRepo.findByIdGroup(allowGroup.getIdGroup());
             users.forEach(new Consumer<User>() {
                 @Override
