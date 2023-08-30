@@ -105,11 +105,13 @@ public class TurnsController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Turn turn){
-        membersRepo.deleteByIdTurn(turn.getId());
-        positionsRepo.deleteByIdTurn((turn.getId()));
-        allowGroupsRepo.deleteByIdTurn(turn.getId());
-        turnsRepo.delete(turn);
+    public void delete(@PathVariable("id") Turn turn, @RequestParam(value = "id_user", required = false) Long id_user){
+        if (Objects.equals(id_user, turn.getIdUser())){
+            membersRepo.deleteByIdTurn(turn.getId());
+            positionsRepo.deleteByIdTurn((turn.getId()));
+            allowGroupsRepo.deleteByIdTurn(turn.getId());
+            turnsRepo.delete(turn);
+        }
     }
 
 
