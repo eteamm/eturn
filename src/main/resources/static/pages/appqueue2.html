@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ваша веб-страница</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            width: 279px;
+            height: 581px;
+            background: #E9EFF2;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #queueName,
+        #queueDescription,
+        #groupCount {
+            width: 232px;
+            color: #C6CED1;
+            font-family: Inter, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        /* Add the modified styles for "Название очереди" input bubble */
+        #queueName {
+            height: 50px;
+            border-radius: 25px;
+            background: #FFF;
+            box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        #queueDescription {
+            height: 100px;
+            border-radius: 26px;
+            background: #FFF;
+            box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        #groupCount {
+            height: 50px;
+            border-radius: 25px;
+            background: #FFF;
+            box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Add the modified styles for "Название очереди" text label */
+        label[for="queueName"],
+        label[for="queueDescription"],
+        label[for="groupCount"] {
+            color: #868686;
+            font-family: Inter, sans-serif;
+            font-size: 8px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        form {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Стили для овальных полей ввода */
+        .oval-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #f0f0f0;
+            border-radius: 25px; /* Обновленный стиль для овальных полей ввода */
+            margin-bottom: 10px;
+            text-align: center; /* Центрировать текст внутри овалов */
+        }
+
+        /* Стиль для маленьких овалов групп */
+        .small-oval {
+            width: 30px; /* Маленький размер овала групп */
+            height: 30px; /* Маленький размер овала групп */
+            padding: 6px; /* Уменьшенный отступ внутри овала групп */
+            border-radius: 50%; /* Овальная форма для овала групп */
+            background-color: #ffffff;
+            display: inline-block; /* Размещение в одной строке */
+            text-align: center; /* Центрировать текст внутри овала групп */
+            margin-right: 5px; /* Отступ между маленькими овалами групп */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #f0f0f0; /* Светлый серый цвет фона */
+            border-radius: 10px; /* Обновленный стиль для полей ввода */
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            background-color: #ffffff; /* Белый цвет фона при фокусе */
+        }
+
+        input[type="text"]::placeholder,
+        input[type="number"]::placeholder,
+        textarea::placeholder {
+            color: #999;
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #FFA500; /* Оранжевый цвет для кнопок */
+            color: #fff;
+            border: none;
+            padding: 12px 20px; /* Увеличенный размер для кнопок "Создать очередь" и "Отмена" */
+            border-radius: 25px;
+            cursor: pointer;
+            transition: width 0.2s; /* Плавное изменение ширины */
+            display: block;
+            margin: 10px auto; /* Центрирование кнопок и отступ между ними */
+            width: 70%; /* Ширина кнопок */
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #FF8000; /* Оранжевый цвет для кнопок при наведении */
+        }
+
+        /* cancel button */
+        .cancel-button {
+            display: flex;
+            width: 139px;
+            height: 27px;
+            flex-direction: column;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #F4694D;
+            text-align: center;
+            font-family: Inter, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        /* input button */
+        input[type="submit"] {
+            display: flex;
+            width: 232px;
+            height: 27px;
+            flex-direction: column;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #E9EFF2;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: Inter, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #FF8000;
+        }
+
+        .group-list {
+            max-height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #FFA500 transparent;
+            border-radius: 25px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .group-bubble {
+            width: 67px;
+            height: 36px;
+            flex-shrink: 0;
+            border-radius: 100px;
+            background: #FFF;
+            box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .group-number {
+            width: 191px;
+            color: #1A212F;
+            font-family: Inter, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .delete-group {
+            color: #F4694D;
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            transform: rotate(-45deg);
+        }
+
+
+        /* Add styles for the oval */
+        .oval {
+            width: 158px;
+            height: 97px;
+            flex-shrink: 0;
+            fill: #F4694D;
+        }
+    </style>
+</head>
+<body>
+<!--<h1>Создание очереди</h1>-->
+
+<!-- Форма для ввода названия очереди и описания -->
+<form>
+
+    <svg class="oval" xmlns="http://www.w3.org/2000/svg" width="107" height="44" viewBox="0 0 107 44" fill="none">
+        <ellipse cx="28" cy="-4.5" rx="79" ry="48.5" fill="#F4694D"/>
+    </svg>
+
+    <label for="queueName">Название очереди:</label>
+    <input type="text" id="queueName" name="queueName" placeholder="Введите название очереди"><br><br>
+
+    <label for="queueDescription">Описание очереди:</label><br>
+    <textarea id="queueDescription" name="queueDescription" rows="4" cols="50" placeholder="Введите описание очереди"></textarea><br><br>
+
+
+    <label for="groupCount">Группы:</label>
+    <input type="number" id="groupCount" name="groupCount" placeholder="Введите допустимые группы">
+
+    <div class="group-list" id="groupList"></div>
+
+    <input type="submit" value="Создать очередь">
+    <input type="button" class="cancel-button" value="Отмена">
+</form>
+
+<script>
+    const groupList = document.getElementById('groupList');
+    const groupCountInput = document.getElementById('groupCount');
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+    });
+
+    document.querySelector('.cancel-button').addEventListener('click', function () {
+        document.querySelector('form').reset();
+        clearGroups();
+    });
+
+    groupCountInput.addEventListener('keyup', function (event) {
+        if (event.key === "Enter") {
+            addGroup();
+        }
+    });
+
+    function addGroup() {
+        const groupCount = groupCountInput.value;
+        if (groupCount !== '') {
+            const groupDiv = document.createElement('div');
+            groupDiv.classList.add('group-bubble');
+            groupDiv.innerHTML = `
+                <span class="group-number">${groupCount}</span>
+                <span class="delete-group" onclick="removeGroup(this)">✖</span>
+            `;
+            groupList.appendChild(groupDiv);
+            groupCountInput.value = '';
+        }
+    }
+
+    function removeGroup(element) {
+        groupList.removeChild(element.parentElement);
+    }
+
+    function clearGroups() {
+        groupList.innerHTML = '';
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
