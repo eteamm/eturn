@@ -1,6 +1,17 @@
-.mainInfoDiv{
-    padding:20px 40px;
+.mainInfoTxt {
+    padding: 250px 100px 10px;
 }
-.mainInfoDiv h1{
-    color:red;
+
+.listTxt {
+    text-align: center;
+    list-style-position: inside;
+}
+
+.listTxt > ol {
+    display: inline-block;
+    text-align: left;
+}
+
+li {
+    margin-top: 25px;
 }
