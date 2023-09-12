@@ -7,11 +7,56 @@
     list-style-position: inside;
 }
 
-.listTxt > ol {
+ol {
     display: inline-block;
     text-align: left;
+    list-style-type: none;
+    counter-reset: num;
+    margin: 0 0 0 45px;
+    padding: 15px 0 5px 0;
+    font-size: 16px;
 }
 
-li {
-    margin-top: 25px;
+ol li {
+    position: relative;
+    margin: 0 0 0 0;
+    padding: 0 0 10px 0;
+    line-height: 2.5;
 }
+
+ol li:before {
+    background: #F4694D;
+    content: counter(num);
+    counter-increment: num;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    margin: 6px 6px;
+    left: -40px;
+    width: 30px;
+    height: 30px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 25px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.image {
+   position: relative;
+    left: 148px;
+    top: 200px;
+    right: 100px;
+}
+
+.button {
+    background: #F4694D;
+    position: relative;
+    left: 120px;
+    border-style: solid;
+    border-width: 7px;
+    border-color: #F4694D;
+    border-radius: 10px;
+    padding: 1px 100px 2px;
+}
+
