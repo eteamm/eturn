@@ -71,3 +71,21 @@ p {
     color: white;
     scale: 3;
 }
+
+.oval {
+    width: 158px;
+    height: 97px;
+    flex-shrink: 0;
+    fill: #F4694D;
+}
+.create-label {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 300;
+    color: #000;
+}
