@@ -73,18 +73,21 @@ p {
 }
 
 .oval {
-    width: 158px;
-    height: 97px;
+    width: 130px;
+    height: 70px;
     flex-shrink: 0;
     fill: #F4694D;
 }
-.create-label {
-    width: 100%;
-    text-align: center;
+header {
+    position: relative;
+}
+.headerTitle {
     position: absolute;
-    top: 10px;
+    text-align: center;
+    top: 17px;
+    left: 20px;
     font-family: Inter, sans-serif;
-    font-size: 10px;
+    font-size: 13px;
     font-style: italic;
     font-weight: 300;
     color: #000;
