@@ -114,3 +114,7 @@ display: flex;
 .margins{
     padding: 10px;
 }
+.QueueCreator{
+    top:30px;
+    font-size:13px;
+}
