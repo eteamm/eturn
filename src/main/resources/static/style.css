@@ -44,15 +44,15 @@ ol li:before {
 
 .image {
    position: relative;
-    left: 105.5px;
+    left: 0px;
     top: 110px;
     right: 100px;
+    text-align: center;
 }
 
 .button {
     background: #F4694D;
     position: relative;
-    left: 80.5px;
     border-style: solid;
     border-width: 0px;
     border-color: #F4694D;
@@ -60,7 +60,7 @@ ol li:before {
     padding: 0px 118px 2px;
 }
 
-p {
+.koyomochka {
     border: 3px solid;
     border-radius: 25px;
     padding: 12px 10px 12px 10px;
@@ -91,6 +91,10 @@ header {
     font-style: italic;
     font-weight: 300;
     color: #000;
+}
+
+.mainButton {
+    text-align: center;
 }
 .TextOfTheTop {
 display: flex;
