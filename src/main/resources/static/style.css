@@ -92,3 +92,21 @@ header {
     font-weight: 300;
     color: #000;
 }
+.TextOfTheTop {
+display: flex;
+}
+.QueueQuantity{
+    position: relative;
+    text-align: right;
+    right:10px;
+}
+.UpperButtons {
+    display: flex;
+    padding: 10px;
+}
+.ButtonStandInQueue{
+    top:
+}
+.margins{
+    padding: 10px;
+}
