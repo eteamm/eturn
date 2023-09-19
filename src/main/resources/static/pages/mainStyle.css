@@ -1,0 +1,23 @@
+.status {
+    display: inline-block;
+}
+
+.group {
+    display: inline-block;
+}
+
+.informationAboutStudent {
+    display: inline-block;
+}
+
+.etuIdInformation {
+    display: inline-block;
+}
+
+.myQueue {
+    display: inline-block;
+}
+
+.available {
+    display: inline-block;
+}
