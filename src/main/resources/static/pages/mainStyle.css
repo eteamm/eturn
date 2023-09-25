@@ -1,13 +1,19 @@
 .etuIdInformation {
+    float: right;
+    text-align: center;
     display: inline-block;
+    padding: 10px;
 }
 
 .status {
+    color: #8C8D8D;
     display: inline-block;
 }
 
 .group {
+    color: #8C8D8D;
     display: inline-block;
+    padding: 0px 0px 0px 20px;
 }
 
 .informationAboutStudent {
@@ -22,7 +28,7 @@
     display: inline-block;
 }
 
-.button {
+.makeQueueBtn {
     background: #F4694D;
     position: relative;
     border-style: solid;
@@ -30,6 +36,7 @@
     border-color: #F4694D;
     border-radius: 16px;
     padding: 0px 118px 2px;
+    color: white;
 }
 
 .buttonTxt {
@@ -61,6 +68,38 @@ body {
     font-family: Inter, sans-serif;
 }
 
-.name {
+.etuIdTxt {
+    color: #F4694D;
+    padding: 7px;
+    font-size: 30px;
+}
 
+.typeQueue {
+    text-align: center;
+    padding: 10px;
+}
+
+.myQueue {
+    color: #F4694D;
+    padding: 0px 130px 0px 0px;
+}
+
+.available {
+    color: #F4694D;
+}
+
+.sectionName {
+    font-size: 10px;
+    margin: 0px 0px;
+    color: #8C8D8D;
+}
+
+.andreiVasilev {
+    font-size: 30px;
+    margin: 0px 0px 10px 0px;
+}
+
+.statusAndGroup {
+    font-size: 15px;
+    color: black;
 }
