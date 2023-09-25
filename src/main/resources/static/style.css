@@ -74,7 +74,7 @@ ol li:before {
 }
 
 .oval {
-    width: 130px;
+    width: 140px;
     height: 70px;
     flex-shrink: 0;
     fill: #F4694D;
@@ -109,7 +109,7 @@ display: flex;
     display: flex;
     padding: 10px;
 }
-.ButtonStandInQueue{
+.StandInQueueButton{
     top:
 }
 .margins{
@@ -118,4 +118,18 @@ display: flex;
 .QueueCreator{
     top:30px;
     font-size:13px;
+}
+.MoreDetailedTxt {
+    font-size: 14px;
+}
+.AfterUpperButtonsTxt{
+    font-size: 12px;
+    color: #F4694D;
+}
+.StudentsInQueue {
+    font-size: 14px;
+    font-style: italic;
+}
+.StandInQueueButton {
+    text-align: center;
 }

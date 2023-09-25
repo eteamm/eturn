@@ -7,6 +7,7 @@ import com.eturn.domain.User;
 import com.eturn.repo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -34,6 +35,9 @@ public class TurnsController {
         this.positionsRepo=positionsRepo;
         this.allowGroupsRepo = allowGroupsRepo;
     }
+
+    @GetMapping
+    public List<Turn> getTurnsList(Model model){return turnsRepo.findAll();}
 
     @GetMapping("{id_turn}")
     public Turn getTurn(@PathVariable("id_turn") Long id_turn){
