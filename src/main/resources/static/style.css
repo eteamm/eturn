@@ -19,7 +19,6 @@ ol {
 
 ol li {
     position: relative;
-    margin: 0 0 0 0;
     padding: 0 0 10px 0;
     line-height: 2.5;
 }
@@ -64,6 +63,8 @@ ol li:before {
     border: 3px solid;
     border-radius: 25px;
     padding: 12px 10px 12px 10px;
+    font-size: 15px;
+    text-align:center;
 }
 
 .arrowBtn {
