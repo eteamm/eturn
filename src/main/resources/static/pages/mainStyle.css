@@ -137,3 +137,49 @@ body {
 .nameQueue {
     padding: 5px 0px 0px 15px;
 }
+
+.lineUnderMy{
+    margin: 0px 0px 0px -30px;
+    position: absolute;
+
+}
+
+.lineUnderMy:before{
+    content: " ";
+    background: #F4694D ;
+    width: 100px;
+    height: 2px;
+    top: 5px;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.lineUnderAvailable {
+    margin: 0px 0px 0px 0px;
+    position: absolute;
+
+}
+
+.lineUnderAvailable:before{
+    content: " ";
+    background: #F4694D;
+    width: 100px;
+    height: 2px;
+    top: 5px;
+    position: absolute;
+    border-radius: 10px;
+}
+
+body {
+    font-family: Inter, sans-serif;
+}
+
+.exitBtn {
+    width: 95px;
+    height: 35px;
+    background-color: #F4694D;
+    border-bottom-left-radius: 20px;
+    color: white;
+    border-width: 0px;
+    padding: 0px 0px 4px 0px;
+}
