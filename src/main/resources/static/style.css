@@ -1,3 +1,7 @@
+body{
+padding-bottom:130px;
+}
+
 .mainInfoTxt {
     padding: 150px 100px 10px;
 }
@@ -151,11 +155,49 @@ display: flex;
     left:8px;
     font-size: 11px;
     colour:#868686;
-
 }
 .WarningTxt{
     position:relative;
     font-size: 10px;
     color: #F4694D;
     left:8px;
+}
+.GroupFields div{
+    width: 30%; /* Маленький размер овала групп */
+    padding: 12px; /* Уменьшенный отступ внутри овала групп */
+    border-radius: 30px;
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+    margin-top:10px;
+}
+.BottomButtons{
+    background: linear-gradient(rgba(0,0,0,0),#E9EFF2 80%);
+    position: fixed;
+    bottom: 0;
+    padding:0 20px;
+    padding-top:40px;
+    left:15px;
+    right:15px;
+}
+.BottomButton{
+    background: #F4694D;
+    border-style: solid;
+    border-width: 0px;
+    border-color: #F4694D;
+    border-radius: 14px;
+    padding: 5px 0px 10px 0px;
+    color: white;
+    font-size: 17px;
+    width: 100%;
+}
+.BottomButton2{
+    background: 0;
+    border:0;
+    border-radius: 14px;
+    padding: 5px 0px 10px 0px;
+    color: #F4694D;
+    font-size: 17px;
+    width: 70%;
+    margin-left: 15%;
 }
